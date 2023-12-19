@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+}
+
+body {
+  background: linear-gradient(90deg, slategrey, darkslategrey);
+  height: 100vh;
+  background-color: slategrey;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tetris {
+  background-color: darkslategray;
+  padding: 0.5vh;
+  border-radius: 0.5vh;
+  display: grid;
+  grid-template-columns: repeat(10, auto);
+  grid-template-rows: repeat(20, auto);
+}
+
+.tetris div {
+  height: min(4vh, 7vw);
+  width: min(4vh, 7vw);
+  background-color: darkgray;
+  border-radius: 0.3vh;
+  box-shadow: inset 2px 2px 2px gray, inset -2px -2px 2px lightgrey;
+}
+
+.tetris .O {
+  background-color: goldenrod;
+}
+
+.tetris .L {
+  background-color: chocolate;
+}
+
+.tetris .J {
+  background-color: darkolivegreen;
+}
+
+.tetris .S {
+  background-color: darkcyan;
+}
+
+.tetris .Z {
+  background-color: darkorchid;
+}
+
+.tetris .T {
+  background-color: darkslateblue;
+}
+
+.tetris .I {
+  background-color: darkgreen;
+}
