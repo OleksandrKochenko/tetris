@@ -56,3 +56,7 @@ body {
 .tetris .I {
   background-color: darkgreen;
 }
+
+.tetris .filed {
+  background-color: rgb(54, 54, 54);
+}
