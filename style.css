@@ -89,7 +89,22 @@ body {
 
 .tetris .D {
   background-color: brown;
+  animation-name: changeColor;
+  animation-duration: 0.5s;
   box-shadow: inset 3px 3px 3px rgba(255, 255, 255, 0.213),
     inset -3px -3px 3px rgba(2, 36, 18, 0.532),
     12px 12px 24px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes changeColor {
+  0% {
+    background-color: chocolate;
+  }
+
+  50% {
+    background-color: brown;
+  }
+  100% {
+    background-color: chocolate;
+  }
 }

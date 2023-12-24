@@ -247,10 +247,15 @@ function removeFilledRows(filledRows) {
       playfield[row][idx] = "D";
     });
 
-    setTimeout(() => {
+    function clear(timerId) {
+      clearTimeout(timerId);
+    }
+
+    const timerId = setTimeout(() => {
       dropRowsAbove(row);
       draw();
-    }, 1000);
+      clear(timerId);
+    }, 500);
   });
 }
 
