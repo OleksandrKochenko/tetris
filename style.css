@@ -3,24 +3,28 @@
 }
 
 body {
+  font-family: "Poppins", sans-serif;
   background: linear-gradient(90deg, slategrey, darkslategrey);
   height: 100vh;
   background-color: slategrey;
   user-select: none;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  letter-spacing: 1.5px;
 }
 
 .tetris {
   background-color: rgb(26, 23, 68);
   padding: 0.5vh;
-  border-radius: 0.5vh;
+  border-top-right-radius: 0.5vh;
+  border-top-left-radius: 0.5vh;
   display: grid;
   grid-template-columns: repeat(10, auto);
   grid-template-rows: repeat(20, auto);
   box-shadow: inset 1px 1px 3px rgba(255, 255, 255, 0.579),
-    inset -4px -4px 8px rgba(0, 0, 0, 0.451), 6px 6px 20px rgba(0, 0, 0, 0.535);
+    inset -4px 0px 8px rgba(0, 0, 0, 0.451), 6px 6px 20px rgba(0, 0, 0, 0.535);
 }
 
 .tetris div {
@@ -107,4 +111,55 @@ body {
   100% {
     background-color: chocolate;
   }
+}
+
+.control {
+  color: #fff;
+  height: min(6vh, 10vw);
+  width: calc(10 * min(4vh, 7vw));
+  background-color: rgb(26, 23, 68);
+  padding: 0.5vh;
+  border-bottom-left-radius: 0.5vh;
+  border-bottom-right-radius: 0.5vh;
+  box-shadow: inset 1px -1px 3px rgba(255, 255, 255, 0.579),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.451), 6px 6px 20px rgba(0, 0, 0, 0.535);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.label {
+  padding: 1vh;
+  text-transform: uppercase;
+}
+
+.btn {
+  height: min(4vh, 7vw);
+  width: min(8vh, 11vw);
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0.5vh;
+  border-radius: 0.5vh;
+  border: none;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 1.5px;
+  box-shadow: inset 3px 3px 3px rgba(255, 255, 255, 0.213),
+    inset -3px -3px 3px rgba(2, 36, 18, 0.532),
+    12px 12px 24px rgba(32, 32, 32, 0.6);
+}
+
+.btn:hover {
+  cursor: pointer;
+  transform: translate(1px, 1px);
+}
+
+.btn.start {
+  background-color: darkolivegreen;
+  margin-right: 1vh;
+}
+
+.btn.pause {
+  background-color: salmon;
+  margin-left: 0;
 }

@@ -43,6 +43,8 @@ const TETROMINOES = {
 
 let playfield;
 let tetromino;
+const scoreElement = document.querySelector(".score");
+let score = parseInt(scoreElement.innerHTML);
 
 function convertPositionToIndex(row, column) {
   return row * PLAYFIELD_COLUMNS + column;
@@ -257,6 +259,9 @@ function removeFilledRows(filledRows) {
       clear(timerId);
     }, 500);
   });
+  console.log("score", score);
+  filledRows.length && updateScore(filledRows.length);
+  console.log("new score", score);
 }
 
 function dropRowsAbove(rowToDelete) {
@@ -265,4 +270,24 @@ function dropRowsAbove(rowToDelete) {
   }
 
   playfield[0] = new Array(PLAYFIELD_COLUMNS).fill(0);
+}
+
+function updateScore(rowQty) {
+  switch (rowQty) {
+    case 1:
+      score += 10;
+      break;
+    case 2:
+      score += 30;
+      break;
+    case 3:
+      score += 50;
+      break;
+    case 4:
+      score += 100;
+      break;
+    default:
+      break;
+  }
+  scoreElement.textContent = score;
 }
