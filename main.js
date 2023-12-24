@@ -152,12 +152,14 @@ function moveTetrominoDown() {
     placeTetromino();
   }
 }
+
 function moveTetrominoLeft() {
   tetromino.column -= 1;
   if (isValid()) {
     tetromino.column += 1;
   }
 }
+
 function moveTetrominoRight() {
   tetromino.column += 1;
   if (isValid()) {
@@ -185,10 +187,12 @@ function placeTetromino() {
   for (let row = 0; row < matrixSize; row++) {
     for (let column = 0; column < matrixSize; column++) {
       if (!tetromino.matrix[row][column]) continue;
-
-      playfield[tetromino.row + row][tetromino.column + column] = "filed";
+      playfield[tetromino.row + row][tetromino.column + column] = "F";
     }
   }
+  const filledRows = findfilledRows();
+  removeFilledRows(filledRows);
+
   generateTetromino(getRandomName());
 }
 
@@ -219,4 +223,41 @@ function isValid() {
       }
     }
   }
+}
+
+function findfilledRows() {
+  const filledRows = [];
+  for (let row = 0; row < PLAYFIELD_ROWS; row++) {
+    let filledColumns = 0;
+    for (let column = 0; column < PLAYFIELD_COLUMNS; column++) {
+      if (playfield[row][column] !== 0) {
+        filledColumns++;
+      }
+    }
+    if (filledColumns === PLAYFIELD_COLUMNS) {
+      filledRows.push(row);
+    }
+  }
+  return filledRows;
+}
+
+function removeFilledRows(filledRows) {
+  filledRows.forEach((row) => {
+    playfield[row].forEach((cell, idx) => {
+      playfield[row][idx] = "D";
+    });
+
+    setTimeout(() => {
+      dropRowsAbove(row);
+      draw();
+    }, 1000);
+  });
+}
+
+function dropRowsAbove(rowToDelete) {
+  for (let row = rowToDelete; row > 0; row--) {
+    playfield[row] = playfield[row - 1];
+  }
+
+  playfield[0] = new Array(PLAYFIELD_COLUMNS).fill(0);
 }
