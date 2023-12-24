@@ -44,11 +44,11 @@ const TETROMINOES = {
 let playfield;
 let tetromino;
 
-const convertPositionToIndex = (row, column) => {
+function convertPositionToIndex(row, column) {
   return row * PLAYFIELD_COLUMNS + column;
-};
+}
 
-const generatePlayField = () => {
+function generatePlayField() {
   for (let i = 0; i < PLAYFIELD_ROWS * PLAYFIELD_COLUMNS; i++) {
     const div = document.createElement("div");
     document.querySelector(".tetris").append(div);
@@ -57,9 +57,9 @@ const generatePlayField = () => {
   playfield = new Array(PLAYFIELD_ROWS)
     .fill(0)
     .map(() => new Array(PLAYFIELD_COLUMNS).fill(0));
-};
+}
 
-const generateTetromino = (name) => {
+function generateTetromino(name) {
   const matrix = JSON.parse(JSON.stringify(TETROMINOES[name]));
 
   const column = PLAYFIELD_COLUMNS / 2 - Math.floor(matrix.length / 2);
@@ -71,7 +71,7 @@ const generateTetromino = (name) => {
     column,
     row,
   };
-};
+}
 
 function getRandomName() {
   const index = Math.floor(Math.random() * TETROMINO_NAMES.length);
@@ -165,12 +165,19 @@ function moveTetrominoRight() {
   }
 }
 
-function isOutsideOfGameBoard(row, column) {
-  return (
-    tetromino.column + column < 0 ||
-    tetromino.column + column >= PLAYFIELD_COLUMNS ||
-    tetromino.row + row >= playfield.length
-  );
+function rotateTetramino() {
+  const matrixSize = tetromino.matrix.length;
+  const tempMatrix = JSON.parse(JSON.stringify(tetromino.matrix));
+
+  for (let row = 0; row < matrixSize; row++) {
+    for (let column = 0; column < matrixSize; column++) {
+      tetromino.matrix[row][column] = tempMatrix[matrixSize - column - 1][row];
+    }
+  }
+
+  if (isValid()) {
+    tetromino.matrix = tempMatrix;
+  }
 }
 
 function placeTetromino() {
@@ -185,19 +192,12 @@ function placeTetromino() {
   generateTetromino(getRandomName());
 }
 
-function rotateTetramino() {
-  const matrixSize = tetromino.matrix.length;
-  const tempMatrix = JSON.parse(JSON.stringify(tetromino.matrix));
-
-  for (let row = 0; row < matrixSize; row++) {
-    for (let column = 0; column < matrixSize; column++) {
-      tetromino.matrix[row][column] = tempMatrix[matrixSize - column - 1][row];
-    }
-  }
-
-  if (isValid()) {
-    tetromino.matrix = tempMatrix;
-  }
+function isOutsideOfGameBoard(row, column) {
+  return (
+    tetromino.column + column < 0 ||
+    tetromino.column + column >= PLAYFIELD_COLUMNS ||
+    tetromino.row + row >= playfield.length
+  );
 }
 
 function isCollisions(row, column) {
