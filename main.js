@@ -60,7 +60,7 @@ const generatePlayField = () => {
 };
 
 const generateTetromino = (name) => {
-  const matrix = TETROMINOES[name];
+  const matrix = JSON.parse(JSON.stringify(TETROMINOES[name]));
 
   const column = PLAYFIELD_COLUMNS / 2 - Math.floor(matrix.length / 2);
   const row = 0;
@@ -121,7 +121,6 @@ function draw() {
   });
   drawPlayField();
   drawTetromino();
-  console.table(playfield);
 }
 
 document.addEventListener("keydown", onKeyDown);
@@ -137,7 +136,9 @@ function onKeyDown(e) {
     case "ArrowRight":
       moveTetrominoRight();
       break;
-
+    case "ArrowUp":
+      rotateTetramino();
+      break;
     default:
       break;
   }
@@ -193,4 +194,19 @@ function placeTetromino() {
     }
   }
   generateTetromino(getRandomName());
+}
+
+function rotateTetramino() {
+  const tetroSize = tetromino.matrix.length;
+  const tempMatrix = JSON.parse(JSON.stringify(tetromino.matrix));
+
+  for (let row = 0; row < tetroSize; row++) {
+    for (let column = 0; column < tetroSize; column++) {
+      tetromino.matrix[row][column] = tempMatrix[tetroSize - column - 1][row];
+    }
+  }
+
+  if (isOutsideOfGameBoard()) {
+    tetromino.matrix = tempMatrix;
+  }
 }
