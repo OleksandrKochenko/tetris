@@ -43,6 +43,7 @@ const TETROMINOES = {
 
 let playfield;
 let tetromino;
+let intervalId;
 const scoreElement = document.querySelector(".score");
 let score = parseInt(scoreElement.innerHTML);
 
@@ -122,7 +123,12 @@ function draw() {
     cell.removeAttribute("class");
   });
   drawPlayField();
-  drawTetromino();
+  if (!isGameOver()) {
+    drawTetromino();
+  } else {
+    clearTimeout(intervalId);
+    alert(`Game over. Your score is ${score}`);
+  }
 }
 
 document.addEventListener("keydown", onKeyDown);
@@ -245,7 +251,7 @@ function findfilledRows() {
 
 function removeFilledRows(filledRows) {
   filledRows.forEach((row) => {
-    playfield[row].forEach((cell, idx) => {
+    playfield[row].forEach((_cell, idx) => {
       playfield[row][idx] = "D";
     });
 
@@ -290,4 +296,29 @@ function updateScore(rowQty) {
       break;
   }
   scoreElement.textContent = score;
+}
+
+function start() {
+  console.log("STARTED!");
+  if (isGameOver()) {
+    window.location.reload();
+  }
+  intervalId = setInterval(() => {
+    moveTetrominoDown();
+    draw();
+  }, 1000);
+}
+
+function pause() {
+  clearInterval(intervalId);
+}
+
+function isGameOver() {
+  let filledCells = [];
+  for (let column = 0; column < PLAYFIELD_COLUMNS; column++) {
+    if (playfield[1][column] !== 0) {
+      filledCells.push(playfield[0][column]);
+    }
+  }
+  return !!filledCells.length;
 }
