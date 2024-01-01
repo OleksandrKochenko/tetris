@@ -44,8 +44,14 @@ const TETROMINOES = {
 let playfield;
 let tetromino;
 let intervalId;
+let isPaused = true;
+
 const scoreElement = document.querySelector(".score");
 let score = parseInt(scoreElement.innerHTML);
+
+const startButton = document.querySelector("#start");
+const pauseButton = document.querySelector("#pause");
+pauseButton.disabled = true;
 
 function convertPositionToIndex(row, column) {
   return row * PLAYFIELD_COLUMNS + column;
@@ -128,13 +134,22 @@ function draw() {
   } else {
     clearTimeout(intervalId);
     alert(`Game over. Your score is ${score}`);
+    startButton.disabled = false;
+    pauseButton.disabled = true;
   }
 }
 
 document.addEventListener("keydown", onKeyDown);
 
 function onKeyDown(e) {
+  if (isPaused) {
+    return;
+  }
+
   switch (e.key) {
+    case " ":
+      dropTetromino();
+      break;
     case "ArrowDown":
       moveTetrominoDown();
       break;
@@ -150,7 +165,15 @@ function onKeyDown(e) {
     default:
       break;
   }
+
   draw();
+}
+
+function dropTetromino() {
+  while (!isValid()) {
+    tetromino.row++;
+  }
+  tetromino.row--;
 }
 
 function moveTetrominoDown() {
@@ -299,18 +322,23 @@ function updateScore(rowQty) {
 }
 
 function start() {
-  console.log("STARTED!");
   if (isGameOver()) {
     window.location.reload();
   }
   intervalId = setInterval(() => {
     moveTetrominoDown();
     draw();
-  }, 1000);
+  }, getDelay());
+  isPaused = false;
+  startButton.disabled = true;
+  pauseButton.disabled = false;
 }
 
 function pause() {
   clearInterval(intervalId);
+  isPaused = true;
+  startButton.disabled = false;
+  pauseButton.disabled = true;
 }
 
 function isGameOver() {
@@ -321,4 +349,10 @@ function isGameOver() {
     }
   }
   return !!filledCells.length;
+}
+
+function getDelay() {
+  const idx = LEVELS.findIndex((el) => el.score <= score);
+  console.log(score);
+  return 1000;
 }

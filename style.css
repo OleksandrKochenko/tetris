@@ -142,6 +142,7 @@ body {
   border-radius: 0.5vh;
   border: none;
   font-weight: 600;
+  font-size: 1.5vh;
   font-family: "Poppins", sans-serif;
   letter-spacing: 1.5px;
   box-shadow: inset 3px 3px 3px rgba(255, 255, 255, 0.213),
@@ -149,9 +150,14 @@ body {
     12px 12px 24px rgba(32, 32, 32, 0.6);
 }
 
-.btn:hover {
+.btn:not([disabled]):hover {
   cursor: pointer;
   transform: translate(1px, 1px);
+}
+
+button.btn:disabled {
+  cursor: not-allowed;
+  background-color: darkgray;
 }
 
 .btn.start {
