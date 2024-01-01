@@ -328,7 +328,7 @@ function start() {
   intervalId = setInterval(() => {
     moveTetrominoDown();
     draw();
-  }, getDelay());
+  }, 1000);
   isPaused = false;
   startButton.disabled = true;
   pauseButton.disabled = false;
@@ -349,10 +349,4 @@ function isGameOver() {
     }
   }
   return !!filledCells.length;
-}
-
-function getDelay() {
-  const idx = LEVELS.findIndex((el) => el.score <= score);
-  console.log(score);
-  return 1000;
 }
