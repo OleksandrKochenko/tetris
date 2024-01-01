@@ -364,15 +364,15 @@ function isGameOver() {
 
 function setLevel() {
   switch (true) {
-    case score >= 10 && score < 50:
+    case score >= 1000 && score < 5000:
       level = 2;
       changeDelay(800);
       break;
-    case score >= 50 && score < 100:
+    case score >= 5000 && score < 10000:
       level = 3;
       changeDelay(600);
       break;
-    case score >= 100 && score < 200:
+    case score >= 10000 && score < 20000:
       level = 4;
       changeDelay(400);
       break;
