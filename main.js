@@ -48,6 +48,8 @@ let level = 1;
 let delay = 1000;
 let isPaused = true;
 
+const levelElement = document.querySelector(".level");
+
 const scoreElement = document.querySelector(".score");
 let score = parseInt(scoreElement.innerHTML);
 
@@ -357,15 +359,15 @@ function isGameOver() {
 
 function setLevel() {
   switch (true) {
-    case score >= 1000 && score < 5000:
+    case score >= 10 && score < 50:
       level = 2;
       changeDelay(800);
       break;
-    case score >= 5000 && score < 10000:
+    case score >= 50 && score < 100:
       level = 3;
       changeDelay(600);
       break;
-    case score >= 10000 && score < 20000:
+    case score >= 100 && score < 200:
       level = 4;
       changeDelay(400);
       break;
@@ -380,6 +382,7 @@ function setLevel() {
     default:
       break;
   }
+  levelElement.textContent = level;
 }
 
 function changeDelay(newDelay) {

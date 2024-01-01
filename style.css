@@ -129,8 +129,9 @@ body {
 }
 
 .label {
-  padding: 1vh;
+  padding: 0 1vh;
   text-transform: uppercase;
+  font-size: 1.5vh;
 }
 
 .btn {
