@@ -44,6 +44,8 @@ const TETROMINOES = {
 let playfield;
 let tetromino;
 let intervalId;
+let level = 1;
+let delay = 1000;
 let isPaused = true;
 
 const scoreElement = document.querySelector(".score");
@@ -161,6 +163,9 @@ function onKeyDown(e) {
       break;
     case "ArrowUp":
       rotateTetramino();
+      break;
+    case "Escape":
+      !isPaused && pause();
       break;
     default:
       break;
@@ -288,9 +293,7 @@ function removeFilledRows(filledRows) {
       clear(timerId);
     }, 500);
   });
-  console.log("score", score);
   filledRows.length && updateScore(filledRows.length);
-  console.log("new score", score);
 }
 
 function dropRowsAbove(rowToDelete) {
@@ -318,6 +321,7 @@ function updateScore(rowQty) {
     default:
       break;
   }
+  setLevel();
   scoreElement.textContent = score;
 }
 
@@ -328,7 +332,7 @@ function start() {
   intervalId = setInterval(() => {
     moveTetrominoDown();
     draw();
-  }, 1000);
+  }, delay);
   isPaused = false;
   startButton.disabled = true;
   pauseButton.disabled = false;
@@ -349,4 +353,40 @@ function isGameOver() {
     }
   }
   return !!filledCells.length;
+}
+
+function setLevel() {
+  switch (true) {
+    case score >= 1000 && score < 5000:
+      level = 2;
+      changeDelay(800);
+      break;
+    case score >= 5000 && score < 10000:
+      level = 3;
+      changeDelay(600);
+      break;
+    case score >= 10000 && score < 20000:
+      level = 4;
+      changeDelay(400);
+      break;
+    case score >= 20000 && score < 50000:
+      level = 5;
+      changeDelay(200);
+      break;
+    case score >= 50000:
+      level = 6;
+      changeDelay(100);
+      break;
+    default:
+      break;
+  }
+}
+
+function changeDelay(newDelay) {
+  delay = newDelay;
+  clearTimeout(intervalId);
+  intervalId = setInterval(() => {
+    moveTetrominoDown();
+    draw();
+  }, delay);
 }
