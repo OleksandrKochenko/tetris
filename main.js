@@ -57,6 +57,10 @@ const startButton = document.querySelector("#start");
 const pauseButton = document.querySelector("#pause");
 pauseButton.disabled = true;
 
+const modal = document.querySelector(".modal");
+
+const result = document.querySelector("#result");
+
 function convertPositionToIndex(row, column) {
   return row * PLAYFIELD_COLUMNS + column;
 }
@@ -137,7 +141,8 @@ function draw() {
     drawTetromino();
   } else {
     clearTimeout(intervalId);
-    alert(`Game over. Your score is ${score}`);
+    result.textContent = score;
+    modal.style.display = "block";
     startButton.disabled = false;
     pauseButton.disabled = true;
   }
@@ -392,4 +397,8 @@ function changeDelay(newDelay) {
     moveTetrominoDown();
     draw();
   }, delay);
+}
+
+function restart() {
+  window.location.reload();
 }

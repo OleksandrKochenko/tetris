@@ -170,3 +170,45 @@ button.btn:disabled {
   background-color: salmon;
   margin-left: 0;
 }
+
+.modal {
+  height: 100vh;
+  width: 100vw;
+  z-index: 1;
+  background-color: rgba(78, 71, 39, 0.6);
+  position: absolute;
+  display: none;
+}
+
+.sticker {
+  width: 20vw;
+  height: 20vh;
+  background-color: rgb(177, 140, 93);
+  position: absolute;
+  z-index: 2;
+  box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.9);
+  top: calc(50% - 20vh / 2);
+  left: calc(50% - 20vw / 2);
+  border-radius: 0.5vh;
+  padding: 1vh;
+  font-weight: 600;
+  font-size: 2vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.over {
+  padding: 1vh 0;
+}
+
+#result {
+  font-weight: 800;
+  font-size: 2.5vw;
+}
+
+.restart {
+  background-color: orangered;
+  height: min(5vh, 9vw);
+  width: min(10vh, 14vw);
+}
