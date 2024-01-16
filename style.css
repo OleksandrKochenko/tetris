@@ -182,29 +182,31 @@ button.btn:disabled {
 
 .sticker {
   width: 20vw;
-  height: 20vh;
+  height: 25vh;
   background-color: rgb(177, 140, 93);
   position: absolute;
   z-index: 2;
   box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.9);
-  top: calc(50% - 20vh / 2);
+  top: calc(50% - 25vh / 2);
   left: calc(50% - 20vw / 2);
   border-radius: 0.5vh;
   padding: 1vh;
   font-weight: 600;
-  font-size: 2vw;
+  font-size: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 }
 
 .over {
-  padding: 1vh 0;
+  padding: 0;
 }
 
 #result {
   font-weight: 800;
-  font-size: 2.5vw;
+  font-size: 24px;
+  margin: 0;
 }
 
 .restart {
